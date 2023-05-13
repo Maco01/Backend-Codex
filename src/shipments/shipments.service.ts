@@ -10,11 +10,11 @@ import { UpdateShipment } from './dto/update-shipment.dto';
 export class ShipmentsService {
   constructor(
     // eslint-disable-next-line prettier/prettier
-    @InjectRepository(Shipment) private shipmetsRepo: Repository<Shipment>,
+    @InjectRepository(Shipment) private shipmentsRepo: Repository<Shipment>,
   ) {}
 
   async findAll() {
-    const findAll = await this.shipmetsRepo.findAndCount();
+    const findAll = await this.shipmentsRepo.findAndCount();
     if (!findAll) throw new BadRequestException({ error: 'Data Not Found' });
     return {
       status: HttpStatus.OK,
@@ -25,7 +25,7 @@ export class ShipmentsService {
   }
 
   async findOne(id: any) {
-    const findOne = await this.shipmetsRepo.findOne({
+    const findOne = await this.shipmentsRepo.findOne({
       where: {
         id: id,
       },
@@ -39,8 +39,8 @@ export class ShipmentsService {
   }
 
   async create(createshipment: CreateShipment) {
-    const shipmentDetails = this.shipmetsRepo.create(createshipment);
-    await this.shipmetsRepo.save(shipmentDetails);
+    const shipmentDetails = this.shipmentsRepo.create(createshipment);
+    await this.shipmentsRepo.save(shipmentDetails);
     return {
       msg: 'Data Added successfully',
       status: HttpStatus.OK,
@@ -49,7 +49,8 @@ export class ShipmentsService {
   }
 
   async update(id: any, updateShipment: UpdateShipment) {
-    const result: any = await this.shipmetsRepo.update({ id }, updateShipment);
+    console.log({ id, updateShipment });
+    const result: any = await this.shipmentsRepo.update({ id }, updateShipment);
     return {
       status: HttpStatus.OK,
       messsage: 'Data updated successfully',
@@ -58,8 +59,14 @@ export class ShipmentsService {
     };
   }
 
-  async delete(id: number) {
-    await this.shipmetsRepo.delete(id);
-    return true;
+  async delete(id: any) {
+    console.log(id);
+    const result: any = await this.shipmentsRepo.delete(id);
+    return {
+      status: HttpStatus.OK,
+      messsage: 'Data deleted successfully',
+      totalData: result && result.length ? result.length : 0,
+      result: result,
+    };
   }
 }

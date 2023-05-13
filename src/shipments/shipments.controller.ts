@@ -48,7 +48,7 @@ export class ShipmentsController {
     return res.send(updateData);
   }
 
-  @Delete('id')
+  @Delete(':id')
   async Deleteshipmet(@Param('id') id: number, @Res() res: Response) {
     const deleteData = await this.shipmentsService.delete(id);
     return res.send(deleteData);
