@@ -1,8 +1,7 @@
 import { IsNumber, IsString } from 'class-validator';
 
 export class CreateShipment {
-  @IsNumber()
-  trackingId: number;
+  trackingId: any;
   @IsString()
   product: string;
   @IsNumber()

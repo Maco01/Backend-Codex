@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import { Shipment } from 'src/shipments/entities/shipment.entity';
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn()
@@ -10,6 +10,9 @@ export class Order {
 
   @Column()
   image: string;
+
+  @OneToOne(() => Shipment, (shipment) => shipment.trackingId)
+  shipment: Shipment;
 
   /* @Column()
   priceUnit: number;

@@ -6,4 +6,6 @@ export class CreateOrder {
 
   @IsString()
   image: string;
+
+  shipment?: any;
 }

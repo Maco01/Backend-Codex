@@ -1,12 +1,20 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Order } from 'src/orders/entities/order.entity';
 
 @Entity()
 export class Shipment {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'tracking_id' })
-  trackingId: number;
+  @OneToOne(() => Order)
+  @JoinColumn({ name: 'tracking_id' })
+  trackingId: Order;
 
   @Column()
   product: string;
