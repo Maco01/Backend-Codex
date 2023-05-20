@@ -8,6 +8,8 @@ export class CreateShipment {
   @IsNumber()
   weight: number;
   @IsString()
+  shipmentType: string;
+  @IsString()
   Departure: string;
   @IsString()
   Arrival: string;
